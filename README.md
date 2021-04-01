@@ -185,7 +185,7 @@ MVP as soon as you can and get working the list of features.
 * Response:
   * `{"key":"6b7b9d0f33bd76e75b0a52433f268d3037e42e66"}`
 
-# my token: bc957b272ccf9838929125cc66761f13c2137075
+# my token for local server 8000: bc957b272ccf9838929125cc66761f13c2137075
 ### Initialize
 * Request:  (Replace token string with logged in user's auth token)
   * `curl -X GET -H 'Authorization: Token bc957b272ccf9838929125cc66761f13c2137075' localhost:8000/api/adv/init/`
@@ -200,6 +200,12 @@ MVP as soon as you can and get working the list of features.
 * Pusher broadcast:
   * Players in previous room receive a message: `<name> has walked north.`
   * Players in next room receive a message: `<name> has entered from the south.`
+
+### Initialize for Heroku server
+  `curl -X GET -H 'Authorization: Token 5ce45fa3ee423a325de3a8bc4aae071d9bd59097' https://mud-adventure.herokuapp.com/api/adv/init/`
+
+### Move for Heroku server
+  `curl -X POST -H 'Authorization: Token 5ce45fa3ee423a325de3a8bc4aae071d9bd59097' -H "Content-Type: application/json" -d '{"direction":"n"}' https://mud-adventure.herokuapp.com/api/adv/move/`
 
 ### Say (NOT YET IMPLEMENTED)
 * Request:  (Replace token string with logged in user's auth token)
