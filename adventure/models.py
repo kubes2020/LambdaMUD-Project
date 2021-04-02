@@ -53,12 +53,14 @@ class Player(models.Model):
             self.initialize()
             return self.room()
 
+@csrf_exempt
 @receiver(post_save, sender=User)
 def create_user_player(sender, instance, created, **kwargs):
     if created:
         Player.objects.create(user=instance)
         Token.objects.create(user=instance)
-
+        
+@csrf_exempt
 @receiver(post_save, sender=User)
 def save_user_player(sender, instance, **kwargs):
     instance.player.save()
