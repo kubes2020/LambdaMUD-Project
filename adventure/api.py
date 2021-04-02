@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 from pusher import Pusher
 from django.http import JsonResponse
 from decouple import config
@@ -11,7 +12,8 @@ import json
 # instantiate pusher
 pusher = Pusher(app_id=config('PUSHER_APP_ID'), key=config('PUSHER_KEY'), secret=config('PUSHER_SECRET'), cluster=config('PUSHER_CLUSTER'))
 
-@csrf_exempt
+# @csrf_exempt
+@ensure_csrf_cookie
 @api_view(["GET"])
 def initialize(request):
     user = request.user
@@ -23,7 +25,8 @@ def initialize(request):
     return JsonResponse({'uuid': uuid, 'name':player.user.username, 'title':room.title, 'description':room.description, 'players':players}, safe=True)
 
 
-@csrf_exempt
+# @csrf_exempt
+@ensure_csrf_cookie
 @api_view(["POST"])
 def move(request):
     dirs={"n": "north", "s": "south", "e": "east", "w": "west"}
@@ -60,7 +63,8 @@ def move(request):
         return JsonResponse({'name':player.user.username, 'title':room.title, 'description':room.description, 'players':players, 'error_msg':"You cannot move that way."}, safe=True)
 
 
-@csrf_exempt
+# @csrf_exempt
+@ensure_csrf_cookie
 @api_view(["POST"])
 def say(request):
     # IMPLEMENT
